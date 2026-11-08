@@ -1,0 +1,40 @@
+digraph ForgePay {
+    graph [
+        rankdir=TB,
+        label="ForgePay - Entity Relationship Diagram",
+        labelloc=t,
+        fontsize=20
+    ];
+
+    node [
+        shape=record,
+        style=filled,
+        fillcolor=lightblue,
+        fontsize=10
+    ];
+
+    customers [
+        label="{CUSTOMERS|PK: customer_id|first_name|last_name|email (UNIQUE)|created_at}"
+    ];
+
+    accounts [
+        label="{ACCOUNTS|PK: account_id|FK: customer_id|account_number (UNIQUE)|account_type|balance|currency|created_at}"
+    ];
+
+    transactions [
+        label="{TRANSACTIONS|PK: transaction_id|FK: source_account_id|FK: destination_account_id|transaction_type|amount|status|description|created_at}"
+    ];
+
+    customers -> accounts [
+        label="One customer has many accounts"
+    ];
+
+    accounts -> transactions [
+        label="Source account (one-to-many)"
+    ];
+
+    accounts -> transactions [
+        label="Destination account (one-to-many)",
+        constraint=false
+    ];
+}
